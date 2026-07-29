@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://school-erp-87v2.onrender.com/api/v1';
+const rawApiUrl = (import.meta.env.VITE_API_URL || 'https://school-erp-87v2.onrender.com/api/v1').replace(/\/+$/, '');
+const API_BASE_URL = rawApiUrl.endsWith('/api/v1')
+  ? rawApiUrl
+  : rawApiUrl.endsWith('/api')
+  ? `${rawApiUrl}/v1`
+  : `${rawApiUrl}/api/v1`;
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -20,7 +25,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    const isAuthRequest = originalRequest?.url === '/auth/login' || originalRequest?.url === '/auth/refresh';
+    const isAuthRequest = originalRequest?.url?.includes('/auth/login') || originalRequest?.url?.includes('/auth/refresh');
     if (error.response?.status === 401 && !isAuthRequest && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
