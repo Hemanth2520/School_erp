@@ -1,11 +1,11 @@
 import {
   Users, GraduationCap, IndianRupee, UserCheck, Bell, FileText,
-  TrendingUp, Clock, AlertCircle, CalendarDays, ArrowRight, UserPlus, CreditCard,
-  Building2, Sparkles, BookOpen, ShieldCheck, CheckCircle
+  TrendingUp, Clock, CalendarDays, ArrowRight, UserPlus, CreditCard,
+  Building2, Sparkles, BookOpen, ShieldCheck
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  LineChart, Line, AreaChart, Area, CartesianGrid
+  AreaChart, Area, CartesianGrid
 } from 'recharts';
 import { StatCard } from '../components/ui/StatCard';
 import { StatusBadge } from '../components/ui/Badge';
@@ -36,8 +36,8 @@ export function Dashboard() {
   const { data: teachersList = [], isLoading: loadingTeachers } = useApiList<Teacher>('teachers');
   const { data: admissionsList = [], isLoading: loadingAdmissions } = useApiList<Admission>('admissions');
   const { data: feeTransactions = [], isLoading: loadingFees } = useApiList<FeeTransaction>('fee-transactions');
-  const { data: noticesList = [], isLoading: loadingNotices } = useApiList<Notice>('notices');
-  const { data: examsList = [], isLoading: loadingExams } = useApiList<Exam>('exams');
+  const { data: noticesList = [] } = useApiList<Notice>('notices');
+  const { data: examsList = [] } = useApiList<Exam>('exams');
   const { data: attendanceList = [] } = useApiList<AttendanceRecord>('attendance');
 
   // Real Database Metric Calculations

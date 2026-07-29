@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { PageHeader } from '../components/ui/PageHeader';
-import { Download, Printer, UserCheck, IdCard, Sparkles } from 'lucide-react';
+import { Download, Printer, IdCard, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useApiList } from '../hooks/useApi';
 

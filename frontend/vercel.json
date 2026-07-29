@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://school-erp-87v2.onrender.com/api/v1/$1"
-    },
-    {
       "source": "/((?!api|assets|documents|.*\\..*).*)",
       "destination": "/index.html"
     }

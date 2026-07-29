@@ -1,5 +1,4 @@
 import { PageHeader } from '../components/ui/PageHeader';
-import { StatusBadge } from '../components/ui/Badge';
 import { CreditCard, ChevronDown, ChevronUp } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useState } from 'react';

@@ -3,7 +3,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { DataTable } from '../components/ui/DataTable';
 import { PageHeader } from '../components/ui/PageHeader';
 import { StatusBadge } from '../components/ui/Badge';
-import { Edit2, Trash2, Package } from 'lucide-react';
+import { Edit2, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useApiList, useApiCreate, useApiUpdate, useApiDelete } from '../hooks/useApi';
 import { Modal } from '../components/ui/Modal';
