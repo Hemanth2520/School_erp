@@ -62,6 +62,10 @@ app.use('/api/', rateLimit({
   legacyHeaders: false,
 }));
 
+app.get(['/', '/health'], (_req, res) => {
+  res.json({ success: true, message: 'EduERP School ERP Backend API is running', version: '1.0.0' });
+});
+
 app.get('/api/health', (_req, res) => {
   res.json({ success: true, message: 'EduERP API is running' });
 });
