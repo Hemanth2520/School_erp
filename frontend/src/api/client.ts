@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://school-erp-87v2.onrender.com/api/v1';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -12,8 +12,6 @@ export const apiClient = axios.create({
 
 // Request interceptor for Bearer token if needed (though we use cookies)
 apiClient.interceptors.request.use((config) => {
-  // If using local storage for token, add it here.
-  // Otherwise, withCredentials handles the cookie.
   return config;
 });
 

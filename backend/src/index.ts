@@ -46,8 +46,8 @@ io.use(async (socket, next) => {
   }
 });
 
-app.use(helmet());
-app.use(cors({ origin: env.clientUrl, credentials: true }));
+app.use(helmet({ contentSecurityPolicy: false }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(compression());
 app.use(morgan(env.nodeEnv === 'development' ? 'dev' : 'combined'));
 app.use(express.json({ limit: '10mb' }));
