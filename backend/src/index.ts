@@ -91,4 +91,4 @@ start().catch(err => {
   process.exit(1);
 });
 
-export { io };
+export { app, io };
