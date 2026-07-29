@@ -15,23 +15,42 @@ export const apiClient = axios.create({
   },
 });
 
-// Request interceptor for Bearer token if needed (though we use cookies)
+// Request interceptor: Attach Bearer token from localStorage for cross-domain auth reliability
 apiClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken');
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
-// Response interceptor for handling errors and token refresh
+// Response interceptor: Capture new access tokens & handle token refresh
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // If login or refresh returned a new accessToken, store it in localStorage
+    const newAccessToken = response?.data?.data?.accessToken || response?.data?.accessToken;
+    if (newAccessToken && typeof newAccessToken === 'string') {
+      localStorage.setItem('accessToken', newAccessToken);
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
     const isAuthRequest = originalRequest?.url?.includes('/auth/login') || originalRequest?.url?.includes('/auth/refresh');
     if (error.response?.status === 401 && !isAuthRequest && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        await apiClient.post('/auth/refresh');
+        const refreshRes = await apiClient.post('/auth/refresh');
+        const newToken = refreshRes?.data?.data?.accessToken || refreshRes?.data?.accessToken;
+        if (newToken) {
+          localStorage.setItem('accessToken', newToken);
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+          }
+        }
         return apiClient(originalRequest);
       } catch (refreshError) {
+        localStorage.removeItem('accessToken');
         if (window.location.pathname !== '/login') window.location.href = '/login';
         return Promise.reject(refreshError);
       }

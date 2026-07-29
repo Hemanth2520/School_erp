@@ -17,6 +17,7 @@ import { verifyAccessToken } from './utils/jwt.js';
 import { User } from './models/User.js';
 
 const app = express();
+app.set('trust proxy', 1);
 const httpServer = createServer(app);
 
 const io = initSocket(httpServer, {
